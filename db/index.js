@@ -4,7 +4,7 @@ const client = new Client({
   host: "localhost",
   port: 5432,
   database: "juicebox-dev",
-  user: "Your Username",
+  user: "grunt",
   password: "Your Password",
 });
 
@@ -355,6 +355,19 @@ async function getPostsByTagName(tagName) {
   }
 }
 
+async function getAllTags() {
+  try {
+    const rows = await client.query(`
+      SELECT *
+      FROM tags;
+    `);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   client,
   getAllUsers,
@@ -370,4 +383,5 @@ module.exports = {
   createPostTag,
   addTagsToPost,
   getPostsByTagName,
+  getAllTags,
 };
